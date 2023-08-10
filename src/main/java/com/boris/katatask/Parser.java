@@ -13,7 +13,9 @@ class Parser {
         if (!Operation.isOperation(split[1])) {
                 throw new ScannerException("не верный знак математической операции");
         }
-
+        if (split.length > 3) {
+            throw new ScannerException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+        }
         given.setOperation(Operation.getOperation(split[1]));
 
         if (isRome(split[0]) && isRome(split[2])) {
@@ -26,8 +28,7 @@ class Parser {
         } else if (isMatches(split[0]) && isMatches(split[2])) {
             given.setA(Integer.parseInt(split[0]));
             given.setB(Integer.parseInt(split[2]));
-        } else if (split.length > 3)
-            throw new ScannerException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+        }
         else if (isMatches(split[0]) && isRome(split[2])) {
             throw new ScannerException("используются одновременно разные системы счисления");
         } else if (isRome(split[0]) && isMatches(split[2])) {
